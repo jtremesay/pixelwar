@@ -125,15 +125,3 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-
-# Django Vite
-DJANGO_VITE_PLUGIN = {
-    "WS_CLIENT": "@vite/client",
-    "DEV_MODE": DEBUG,
-    "BUILD_DIR": STATIC_ROOT,
-    "BUILD_URL_PREFIX": STATIC_URL,  # Bundled assets would be prefixed with this on production
-    "SERVER": {"HTTPS": False, "HOST": "127.0.0.1", "PORT": 5173},
-    "JS_ATTRS": {"type": "module"},
-    "CSS_ATTRS": {"rel": "stylesheet", "type": "text/css"},
-    "STATIC_LOOKUP": True,
-}
