@@ -1,0 +1,26 @@
+.palette {
+    position: fixed;
+    bottom: 16px;
+    left: 16px;
+    background: white;
+    border: 1px solid #ccc;
+    padding: 8px;
+    border-radius: 4px;
+}
+
+.palette input {
+    display: none;
+}
+
+.palette label {
+    width: 24px;
+    height: 24px;
+    display: inline-block;
+    border: #ccc 1px solid;
+}
+
+.palette input:checked+label {
+    width: 28px;
+    height: 28px;
+    border: 2px solid #ccc;
+}

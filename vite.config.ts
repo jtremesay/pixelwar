@@ -5,6 +5,7 @@ import { djangoVitePlugin } from 'django-vite-plugin'
 export default defineConfig({
   plugins: [
     djangoVitePlugin([
+      'frontend/main.css',
       'frontend/main.ts',
     ]),
   ],
