@@ -18,7 +18,6 @@ export class Engine {
         inner_canvas.width = GRID_SIZE_P;
         inner_canvas.height = GRID_SIZE_P;
         this.inner_ctx = inner_canvas.getContext("2d")!;
-        this.inner_ctx.imageSmoothingEnabled = false;
 
         // Fill the inner canvas with the background color
         this.inner_ctx.fillStyle = PALETTE_COLORS[0];
@@ -48,15 +47,16 @@ export class Engine {
 
     set_pixel(x: number, y: number, color_index: number) {
         if (x < 0 || x >= GRID_SIZE_P || y < 0 || y >= GRID_SIZE_P) {
-            console.warn(`set_pixel: coordinates out of bounds: ${x}, ${y}`);
-            return;
+            throw new Error(`set_pixel: invalid coordinates: (${x}, ${y})`);
         }
+
         if (color_index < 0 || color_index >= PALETTE_COLORS.length) {
-            console.warn(`set_pixel: invalid color index: ${color_index}`);
-            return;
+            throw new Error(`set_pixel: invalid color index: ${color_index}`);
         }
+
         this.inner_ctx.fillStyle = PALETTE_COLORS[color_index];
         this.inner_ctx.fillRect(x, y, 1, 1);
+
         this.is_dirty = true;
     }
 
@@ -93,16 +93,16 @@ export class Engine {
 
     create_palette_ui() {
         // Get the palette element
-        let palette_e = document.querySelector("#palette")!;
+        const palette_e = document.querySelector("#palette")!;
 
         // Create a color button for each color in the palette
         PALETTE_COLORS.forEach((color, index) => {
             // Create a container for the color
-            let color_e = palette_e.appendChild(document.createElement("div"));
+            const color_e = palette_e.appendChild(document.createElement("div"));
             color_e.className = "color";
 
             // Create the radio input
-            let input_e = color_e.appendChild(document.createElement("input"));
+            const input_e = color_e.appendChild(document.createElement("input"));
             input_e.type = "radio";
             input_e.id = `color-${index}`;
             input_e.name = "color";
@@ -112,7 +112,7 @@ export class Engine {
             }
 
             // Create the label
-            let label_e = color_e.appendChild(document.createElement("label"));
+            const label_e = color_e.appendChild(document.createElement("label"));
             label_e.style.backgroundColor = color;
             label_e.htmlFor = input_e.id;
 
