@@ -1,0 +1,5 @@
+services:
+  pixelwar:
+    image: "killruana/pixelwar:main"
+    ports:
+      - 8080:8000
