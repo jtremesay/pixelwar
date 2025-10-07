@@ -7,6 +7,30 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    if: github.ref != 'refs/heads/main'
+    steps:
+      - name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: |
+            killruana/pixelwar
+          tags: |
+            type=schedule
+            type=ref,event=branch
+            type=ref,event=pr
+            type=sha
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      - name: Build and push
+        uses: docker/build-push-action@v6
+        with:
+          tags: ${{ steps.meta.outputs.tags }}
+          cache-from: type=registry,ref=killruana/pixelwar:buildcache
+
+  build-prod:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
 
     steps:
       - name: Docker meta
@@ -24,21 +48,20 @@ jobs:
         uses: docker/setup-buildx-action@v3
       - name: Login to Docker Hub
         uses: docker/login-action@v3
-        if: github.ref == 'refs/heads/main'
         with:
           username: killruana
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Build and push
         uses: docker/build-push-action@v6
         with:
-          push: ${{ github.ref == 'refs/heads/main' }}
+          push: true
           tags: ${{ steps.meta.outputs.tags }}
           cache-from: type=registry,ref=killruana/pixelwar:buildcache
           cache-to: type=registry,ref=killruana/pixelwar:buildcache,mode=max
 
   deploy:
     runs-on: ubuntu-latest
-    needs: build
+    needs: build-prod
     if: github.ref == 'refs/heads/main'
 
     steps:
@@ -47,7 +70,7 @@ jobs:
         with:
           docker_username: killruana
           docker_password: ${{ secrets.DOCKERHUB_TOKEN }}
-          remote_host: pixelwar
+          remote_host: jtremesay.org
           remote_user: github-ci
           ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
-          stack_name: jtremesay_org
+          stack_name: pixelwar
