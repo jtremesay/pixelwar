@@ -5,3 +5,4 @@ services:
       - 8082:8000
     environment:
       SECRET_KEY: "django-insecure-todo"
+      ALLOWED_HOSTS: "pixelwar.jtremesay.orq"
