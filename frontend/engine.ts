@@ -4,6 +4,7 @@ import { create_palette_ui } from "./ui";
 import { World } from "./world";
 
 export class Engine {
+    _is_dirty: boolean = true;
     selected_color: number = 1;
     camera: Camera;
     world: World;
@@ -21,12 +22,21 @@ export class Engine {
         }
 
         // Create the display canvas
-        const display_canvas = document.querySelector("canvas") as HTMLCanvasElement;
-        this.ctx = display_canvas.getContext("2d")!;
-        this.ctx.imageSmoothingEnabled = false;
+        const canvas = document.querySelector("canvas") as HTMLCanvasElement;
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        this.ctx = canvas.getContext("2d")!;
+        window.addEventListener("resize", this.on_resize.bind(this), { passive: true });
 
         // Create the palette UI
         create_palette_ui(this.on_color_selected.bind(this), this.selected_color);
+    }
+
+    on_resize() {
+        this.ctx.canvas.width = window.innerWidth;
+        this.ctx.canvas.height = window.innerHeight;
+        this._is_dirty = true;
     }
 
     on_color_selected(color_index: number) {
@@ -35,7 +45,7 @@ export class Engine {
 
     render() {
         this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
-
+        this.ctx.imageSmoothingEnabled = false;
         this.ctx.save();
         this.camera.apply(this.ctx);
         this.world.render(this.ctx);
@@ -55,10 +65,11 @@ export class Engine {
     }
 
     get is_dirty() {
-        return this.world.is_dirty || this.camera.is_dirty;
+        return this._is_dirty || this.world.is_dirty || this.camera.is_dirty;
     }
 
     clean() {
+        this._is_dirty = false;
         this.world.clean();
         this.camera.clean();
     }

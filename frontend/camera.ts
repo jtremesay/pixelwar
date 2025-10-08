@@ -21,7 +21,7 @@ export class Camera {
     }
 
     get zoom_scale(): number {
-        return Math.pow(2, this.zoom_level);
+        return 8 * Math.pow(2, this.zoom_level);
     }
 
     set zoom_scale(z: number) {
