@@ -9,4 +9,4 @@ export const PALETTE_COLORS = [
     "#aa42ff",
 ];
 
-export const GRID_SIZE_P = 8; // in world pixels
+export const GRID_SIZE_P = 64; // in world pixels
