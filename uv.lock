@@ -204,11 +204,11 @@ wheels = [
 
 [[package]]
 name = "django-vite-plugin"
-version = "4.1.1"
+version = "4.1.2"
 source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/77/42/d1878d97077d0282134978ab5763417244901100482d09211403767ed035/django_vite_plugin-4.1.1.tar.gz", hash = "sha256:af83f7d990e6b1c6b9723fc2bbc9721a1bc0ac3a44ba617b0892bfe6389e516d", size = 7086, upload-time = "2025-09-11T01:24:28.141Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/b3/21/323689be25f289a4f44ed5622ddf3a9c34cc5d837d196264f3fd8c3a7d20/django_vite_plugin-4.1.2.tar.gz", hash = "sha256:90dd9de1c89eebadb4db49226ee8ce6c3b962ded0bb9991ef957e55af71c289f", size = 6965, upload-time = "2025-10-13T12:59:28.359Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/89/56/cd61d9fd6064e44b281435a43128559d57f43126c2e79b4311a567d07f14/django_vite_plugin-4.1.1-py3-none-any.whl", hash = "sha256:dc2b52ad441fac883d631eb34aece737dd218de4fcf605489a0660e9d877599a", size = 12595, upload-time = "2025-09-11T01:24:27.064Z" },
+    { url = "https://files.pythonhosted.org/packages/e5/bb/bf3f960a66f57b764888352c226ef7d999c5ef591e11ee187d367304c55a/django_vite_plugin-4.1.2-py3-none-any.whl", hash = "sha256:e1c3242bae9ddab61b9ce155c446992dbfc5d6e7ed14fcd07bc86c213dae70d8", size = 12272, upload-time = "2025-10-13T12:59:27.548Z" },
 ]
 
 [[package]]
