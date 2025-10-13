@@ -59,18 +59,18 @@ jobs:
           cache-from: type=registry,ref=killruana/pixelwar:buildcache
           cache-to: type=registry,ref=killruana/pixelwar:buildcache,mode=max
 
-  deploy:
-    runs-on: ubuntu-latest
-    needs: build-prod
-    if: github.ref == 'refs/heads/main'
+  # deploy:
+  #   runs-on: ubuntu-latest
+  #   needs: build-prod
+  #   if: github.ref == 'refs/heads/main'
 
-    steps:
-      - name: Deploy
-        uses: jtremesay/docker-swarm-deploy@main
-        with:
-          docker_username: killruana
-          docker_password: ${{ secrets.DOCKERHUB_TOKEN }}
-          remote_host: jtremesay.org
-          remote_user: github-ci
-          ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
-          stack_name: pixelwar
+  #   steps:
+  #     - name: Deploy
+  #       uses: jtremesay/docker-swarm-deploy@main
+  #       with:
+  #         docker_username: killruana
+  #         docker_password: ${{ secrets.DOCKERHUB_TOKEN }}
+  #         remote_host: jtremesay.org
+  #         remote_user: github-ci
+  #         ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
+  #         stack_name: pixelwar
