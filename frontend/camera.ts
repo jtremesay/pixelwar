@@ -39,4 +39,10 @@ export class Camera {
         ctx.scale(this.zoom_scale, this.zoom_scale); // Apply zoom
         ctx.translate(-this.position.x, -this.position.y); // Move to camera position
     }
+
+    screen_to_world(screen_x: number, screen_y: number): Position {
+        const world_x = (screen_x - window.innerWidth / 2) / this.zoom_scale + this.position.x;
+        const world_y = (screen_y - window.innerHeight / 2) / this.zoom_scale + this.position.y;
+        return new Position(world_x, world_y);
+    }
 }

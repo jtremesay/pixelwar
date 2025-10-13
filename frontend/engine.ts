@@ -14,13 +14,6 @@ export class Engine {
         this.camera = new Camera();
         this.world = new World();
 
-        // Set up some test pixels
-        for (let y = 0; y < GRID_SIZE_P; y++) {
-            for (let x = 0; x < GRID_SIZE_P; x++) {
-                this.world.set_pixel(x, y, (x + y) % PALETTE_COLORS.length);
-            }
-        }
-
         // Create the display canvas
         const canvas = document.querySelector("canvas") as HTMLCanvasElement;
         canvas.width = window.innerWidth;
@@ -28,6 +21,9 @@ export class Engine {
 
         this.ctx = canvas.getContext("2d")!;
         window.addEventListener("resize", this.on_resize.bind(this), { passive: true });
+        canvas.addEventListener("mousedown", (e) => {
+            this.on_mouse_down(e.clientX, e.clientY);
+        });
 
         // Create the palette UI
         create_palette_ui(this.on_color_selected.bind(this), this.selected_color);
@@ -41,6 +37,18 @@ export class Engine {
 
     on_color_selected(color_index: number) {
         this.selected_color = color_index;
+    }
+
+    on_mouse_down(x: number, y: number) {
+        const world_pos = this.camera.screen_to_world(x, y);
+        const pixel_x = Math.floor(world_pos.x + GRID_SIZE_P / 2);
+        const pixel_y = Math.floor(world_pos.y + GRID_SIZE_P / 2);
+
+        if (pixel_x < 0 || pixel_x >= GRID_SIZE_P || pixel_y < 0 || pixel_y >= GRID_SIZE_P) {
+            return; // Out of bounds
+        }
+        this.world.set_pixel(pixel_x, pixel_y, this.selected_color);
+
     }
 
     render() {
