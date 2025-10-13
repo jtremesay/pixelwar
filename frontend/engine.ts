@@ -1,5 +1,5 @@
 import { Camera } from "./camera";
-import { GRID_SIZE_P, PALETTE_COLORS } from "./settings";
+import { GRID_SIZE_P } from "./settings";
 import { create_palette_ui } from "./ui";
 import { World } from "./world";
 
